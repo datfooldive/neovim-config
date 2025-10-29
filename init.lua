@@ -73,15 +73,6 @@ autocmd('FileType', {
   command = 'nnoremap <buffer> q :close<CR>',
 })
 
-vim.api.nvim_create_user_command('Shell', function(params)
-  local cmd = params.args
-  vim.cmd('split term://' .. (cmd ~= '' and cmd or ''))
-
-  vim.api.nvim_buf_set_keymap(0, 'n', 'q', '<cmd>bdelete!<CR>', { noremap = true, silent = true })
-end, { nargs = '*' })
-
-vim.keymap.set('n', '<Leader>sh', ':Shell ', { noremap = true, silent = false })
-
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -368,7 +359,7 @@ require('lazy').setup {
           },
         },
         vtsls = {},
-        -- phpactor = {},
+        hyprls = {},
         intelephense = {},
         clangd = {},
         gopls = {
@@ -735,6 +726,19 @@ require('lazy').setup {
   {
     'vyfor/cord.nvim',
     build = ':Cord update',
+  },
+  {
+    'nvim-flutter/flutter-tools.nvim',
+    lazy = false,
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'stevearc/dressing.nvim',
+    },
+    config = true,
+  },
+  {
+    'brenoprata10/nvim-highlight-colors',
+    opts = {},
   },
 }
 
